@@ -203,6 +203,7 @@ Gem::Specification.new do |s|
     "lib/ftpd/list_format/ls.rb",
     "lib/ftpd/list_path.rb",
     "lib/ftpd/null_logger.rb",
+    "lib/ftpd/path_helper.rb",
     "lib/ftpd/protocols.rb",
     "lib/ftpd/read_only_disk_file_system.rb",
     "lib/ftpd/server.rb",

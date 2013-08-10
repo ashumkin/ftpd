@@ -10,7 +10,7 @@ module Ftpd
         ensure_file_system_supports :append
         path = argument
         syntax_error unless path
-        path = File.expand_path(path, name_prefix)
+        path = PathHelper.expand_path(path, name_prefix)
         ensure_accessible path
         receive_file do |data_socket|
           file_system.append path, data_socket

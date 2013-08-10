@@ -9,7 +9,7 @@ module Ftpd
       ensure_file_system_supports :delete
       path = argument
       error "Path required", 501 unless path
-      path = File.expand_path(path, name_prefix)
+      path = PathHelper.expand_path(path, name_prefix)
       ensure_accessible path
       ensure_exists path
       file_system.delete path
