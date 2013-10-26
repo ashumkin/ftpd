@@ -358,6 +358,7 @@ Among those who have improved ftpd are:
 * Michael de Silva
 * Mike Ragalie
 * cransom
+* m0x
 
 If I've forgotten to add you, please remind me, or submit a merge
 request.
