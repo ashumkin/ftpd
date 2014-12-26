@@ -2,6 +2,11 @@ source 'http://rubygems.org'
 
 gem 'memoizer', '~> 1.0'
 
+if RUBY_PLATFORM.match(/mswin|mingw/)
+  gem 'win32-file'
+  gem 'win32-file-security'
+end
+
 group :development do
   gem 'cucumber', '~> 1.3'
   gem 'double-bag-ftps', '~> 0.1'

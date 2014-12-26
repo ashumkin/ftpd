@@ -13,7 +13,7 @@ module Ftpd
       # data_dir should be an absolute path.
 
       def set_data_dir(data_dir)
-        @data_dir = data_dir
+        @data_dir = data_dir.gsub('\\', '/')
       end
 
       # Expand an ftp_path to an absolute file system path.
@@ -267,13 +267,17 @@ module Ftpd
 
       def file_info(ftp_path)
         stat = File.stat(expand_ftp_path(ftp_path))
+        if RUBY_PLATFORM.downcase.match(/mswin|win32|mingw/)
+          require 'win32/file'
+          require 'win32/file/security'
+        end
         FileInfo.new(:ftype => stat.ftype,
-                     :group => gid_name(stat.gid),
+                     :group => gid_name(stat.gid) || File.owner(expand_ftp_path(ftp_path)).split('\\').pop,
                      :identifier => identifier(stat),
                      :mode => stat.mode,
                      :mtime => stat.mtime,
                      :nlink => stat.nlink,
-                     :owner => uid_name(stat.uid),
+                     :owner => uid_name(stat.uid) || File.owner(expand_ftp_path(ftp_path)).split('\\').pop,
                      :path => ftp_path,
                      :size => stat.size)
       end
@@ -318,10 +322,12 @@ module Ftpd
       private
 
       def uid_name(uid)
+        return nil if RUBY_PLATFORM.downcase.match(/mswin|win32|mingw/)
         Etc.getpwuid(uid).name
       end
 
       def gid_name(gid)
+        return nil if RUBY_PLATFORM.downcase.match(/mswin|win32|mingw/)
         Etc.getgrgid(gid).name
       end
 
