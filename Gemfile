@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'memoizer', '~> 1.0'
 
-if RUBY_PLATFORM.match(/mswin|mingw/)
+if RUBY_PLATFORM.downcase.match(/mswin|win32|mingw/)
   gem 'win32-file'
   gem 'win32-file-security'
 end

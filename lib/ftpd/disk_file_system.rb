@@ -267,10 +267,6 @@ module Ftpd
 
       def file_info(ftp_path)
         stat = File.stat(expand_ftp_path(ftp_path))
-        if RUBY_PLATFORM.downcase.match(/mswin|win32|mingw/)
-          require 'win32/file'
-          require 'win32/file/security'
-        end
         FileInfo.new(:ftype => stat.ftype,
                      :group => gid_name(stat.gid) || File.owner(expand_ftp_path(ftp_path)).split('\\').pop,
                      :identifier => identifier(stat),
