@@ -6,7 +6,7 @@ module Ftpd
 
     def cmd_cwd(argument)
       ensure_logged_in
-      path = File.expand_path(argument, name_prefix)
+      path = PathHelper.expand_path(argument, name_prefix)
       ensure_accessible path
       ensure_exists path
       ensure_directory path

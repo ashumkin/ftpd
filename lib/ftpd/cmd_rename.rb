@@ -8,7 +8,7 @@ module Ftpd
       ensure_logged_in
       ensure_file_system_supports :rename
       syntax_error unless argument
-      from_path = File.expand_path(argument, name_prefix)
+      from_path = PathHelper.expand_path(argument, name_prefix)
       ensure_accessible from_path
       ensure_exists from_path
       @rename_from_path = from_path
@@ -20,7 +20,7 @@ module Ftpd
       ensure_logged_in
       ensure_file_system_supports :rename
       syntax_error unless argument
-      to_path = File.expand_path(argument, name_prefix)
+      to_path = PathHelper.expand_path(argument, name_prefix)
       ensure_accessible to_path
       ensure_does_not_exist to_path
       file_system.rename(@rename_from_path, to_path)

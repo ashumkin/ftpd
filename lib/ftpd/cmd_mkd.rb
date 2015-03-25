@@ -8,7 +8,7 @@ module Ftpd
       syntax_error unless argument
       ensure_logged_in
       ensure_file_system_supports :mkdir
-      path = File.expand_path(argument, name_prefix)
+      path = PathHelper.expand_path(argument, name_prefix)
       ensure_accessible path
       ensure_exists File.dirname(path)
       ensure_directory File.dirname(path)

@@ -8,7 +8,7 @@ module Ftpd
       syntax_error unless argument
       ensure_logged_in
       ensure_file_system_supports :rmdir
-      path = File.expand_path(argument, name_prefix)
+      path = PathHelper.expand_path(argument, name_prefix)
       ensure_accessible path
       ensure_exists path
       ensure_directory path
