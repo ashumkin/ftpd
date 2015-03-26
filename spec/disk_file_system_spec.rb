@@ -247,21 +247,25 @@ module Ftpd
     describe '#file_info' do
 
       let(:identifier) {"#{stat.dev}.#{stat.ino}"}
-      let(:owner) {Etc.getpwuid(stat.uid).name}
-      let(:group) {Etc.getgrgid(stat.gid).name}
+      unless RUBY_PLATFORM.downcase.match(/mswin|win32|mingw/)
+        let(:owner) {Etc.getpwuid(stat.uid).name}
+        let(:group) {Etc.getgrgid(stat.gid).name}
+      end
       let(:stat) {File.stat(data_path(path))}
       subject {disk_file_system.file_info(path)}
 
       shared_examples 'file info' do
         its(:ftype) {should == stat.ftype}
-        its(:group) {should == group}
         its(:mode) {should == stat.mode}
         its(:mtime) {should == stat.mtime}
         its(:nlink) {should == stat.nlink}
-        its(:owner) {should == owner}
         its(:size) {should == stat.size}
         its(:path) {should == path}
         its(:identifier) {should == identifier}
+        unless RUBY_PLATFORM.downcase.match(/mswin|win32|mingw/)
+          its(:group) {should == group}
+          its(:owner) {should == owner}
+        end
       end
 
       context '(file)' do
