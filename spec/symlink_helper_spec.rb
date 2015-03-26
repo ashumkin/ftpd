@@ -12,13 +12,15 @@ describe SymlinkHelper do
 
   context 'when symlink is not supported' do
     specify do
-      File.stub(:symlink).and_raise(NotImplementedError)
+      allow(File).to receive(:symlink).and_raise(NotImplementedError)
       expect(symlink_supported?).to be false
     end
   end
 
-  it 'should be callable as a module function' do
-    SymlinkHelper.symlink_supported?
+  context 'when called as a module function' do
+    specify do
+      SymlinkHelper.symlink_supported?
+    end
   end
 
 end
