@@ -6,14 +6,14 @@ describe SymlinkHelper do
 
   context 'when symlink is supported' do
     specify do
-      expect(symlink_supported?).to be_true
+      expect(symlink_supported?).to be true
     end
   end
 
   context 'when symlink is not supported' do
     specify do
       File.stub(:symlink).and_raise(NotImplementedError)
-      expect(symlink_supported?).to be_false
+      expect(symlink_supported?).to be false
     end
   end
 
