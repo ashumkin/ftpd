@@ -268,12 +268,12 @@ module Ftpd
       def file_info(ftp_path)
         stat = File.stat(expand_ftp_path(ftp_path))
         FileInfo.new(:ftype => stat.ftype,
-                     :group => gid_name(stat.gid) || File.owner(expand_ftp_path(ftp_path)).split('\\').pop,
+                     :group => gid_name(stat.gid) || (File.respond_to?(:owner) ? File.owner(expand_ftp_path(ftp_path)).split('\\').pop : 'group'),
                      :identifier => identifier(stat),
                      :mode => stat.mode,
                      :mtime => stat.mtime,
                      :nlink => stat.nlink,
-                     :owner => uid_name(stat.uid) || File.owner(expand_ftp_path(ftp_path)).split('\\').pop,
+                     :owner => uid_name(stat.uid) || (File.respond_to?(:owner) ? File.owner(expand_ftp_path(ftp_path)).split('\\').pop : 'owner'),
                      :path => ftp_path,
                      :size => stat.size)
       end

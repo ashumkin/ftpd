@@ -13,8 +13,12 @@ require 'tmpdir'
 # Gems
 require 'memoizer'
 if RUBY_PLATFORM.downcase.match(/mswin|win32|mingw/)
-  require 'win32/file'
-  require 'win32/file/security'
+  begin
+    require 'win32/file'
+    require 'win32/file/security'
+  rescue LoadError
+    warn '`win32-file` gem is absent or not loaded?'
+  end
 end
 
 # Ftpd
