@@ -13,7 +13,7 @@ module Ftpd
       # data_dir should be an absolute path.
 
       def set_data_dir(data_dir)
-        @data_dir = data_dir.gsub('\\', '/')
+        @data_dir = data_dir.gsub('\\', '/').gsub(/\/$/, '')
       end
 
       # Expand an ftp_path to an absolute file system path.
